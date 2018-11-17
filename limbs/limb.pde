@@ -16,7 +16,7 @@ void limb(float dirmin,float dirmax,float dirmin2,float dirmax2,float ang){
 
   //if(frameCount%20==0 || frameCount==1){
    coords.clear();//only one branch is always there cuz every 20 frames the coords are cleared??
-  for(int i=0;i<30;i++){
+  for(int i=0;i<0;i++){
   coords.add(new PVector(x,y,z));
   x+=dirmin+abs(dirmin*inc-dirmax*inc)*sin(ang);
   y+=dirmin2+random(dirmin2*inc,dirmax2*inc)*cos(ang);
