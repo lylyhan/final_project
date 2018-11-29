@@ -1,0 +1,30 @@
+final project scheduler:
+
+step 1 (overall description):
+
+This is a world where living organisms thrive. They take on the boldest color, bodies truly free, unafraid to reveal their desires. They are in controlled harmony until you disturb them.
+
+step 2: (specific goals)
+- barnacle structure(from project 1) that can expand its opening or extend vertically, with varying size
+- segmented pod structure that frantically throws away and retracts its limbs
+- seaflower structure that are steady but changes color, use shaders
+- make some goose barnacles and anemones!
+- pixeled liquids moving through space
+- pixeled liquids shoot from organisms
+- characteristic sound with each movements
+
+step 3: (organize inspirations)
+- visuals: bjork, tidal organisms, mushrooms
+- emotions: manhood, the myth of sisyphus
+- movements: pina bausch, ballet russe
+- sound: kate soper
+
+step 4: 
+week 1:
+finished barnacle and segmented pod
+week 2:
+explore shader and create seaflower
+explore pixel liquids movement
+week 3:
+sound 
+put together all the visuals elements

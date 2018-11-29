@@ -15,23 +15,23 @@ void limb(float dirmin,float dirmax,float dirmin2,float dirmax2,float ang){
    
 
   //if(frameCount%20==0 || frameCount==1){
-   coords.clear();//only one branch is always there cuz every 20 frames the coords are cleared??
-  for(int i=0;i<0;i++){
+  coords.clear();//only one branch is always there cuz every 20 frames the coords are cleared??
+  for(int i=0;i<10;i++){
   coords.add(new PVector(x,y,z));
-  x+=dirmin+abs(dirmin*inc-dirmax*inc)*sin(ang);
+  x+=dirmin+random(dirmin*inc-dirmax*inc)*sin(ang);
   y+=dirmin2+random(dirmin2*inc,dirmax2*inc)*cos(ang);
-  z+=random(-40,40);
+  z+=random(-80,80);
   }
   //}
   //println(coords.size());
   PVector pcoord=coords.get(0);
   //PVector endcoord=new PVector(800,100,40);
   strokeWeight(1);
-  stroke(255,255,255,200);
+  //stroke(118,16,13,100);
   fill(200);
   beginShape();
   for(int i=1;i<coords.size();i++){
-  
+  //draw the lantern-shaped arcs
   //generate_arc(pcoord.x,pcoord.y,coords.get(i).x, coords.get(i).y, 80,1,pcoord.z,pcoord.z,coords.get(i).z);
   generate_arc(pcoord.x,pcoord.y,coords.get(i).x, coords.get(i).y, 70,1,pcoord.z,pcoord.z,coords.get(i).z);
   generate_arc(pcoord.x,pcoord.y,coords.get(i).x, coords.get(i).y, 60,1,pcoord.z,pcoord.z,coords.get(i).z);
