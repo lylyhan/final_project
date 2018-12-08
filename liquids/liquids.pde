@@ -7,10 +7,10 @@ tentacles t1,t2,t3,t4,t5;
 float tall=80;
 float var,angle;
 import processing.sound.*;
-SoundFile file1,file2;
+SoundFile file1,file2,file3,file4;
 int already1=0;
 int already2=0;
-
+int already3=0;
 
 void setup(){
   size(1000,1000,P3D);
@@ -31,8 +31,9 @@ t4=new tentacles(10,15,500,400);
 t5=new tentacles(10,15,0,100);
 
  file1 = new SoundFile(this, "breathin.wav");
-  file2 = new SoundFile(this, "breathout.wav");
- 
+ file2 = new SoundFile(this, "breathout.wav");
+ file3 = new SoundFile(this, "whisper.wav");
+ file4 = new SoundFile(this, "swallow.wav");
 
 }
 
@@ -63,10 +64,15 @@ void draw(){
   
   
   background(0);
-  
+  if(key=='h'){
+    if(!file3.isPlaying() && already3==0){
+    file3.play();
+    already3=1;
+    }
   for(int i=0;i<vehicles.size();i++){
     vehicles.get(i).follow(f);
     vehicles.get(i).run();
+  }
   }
   //f.display();
   tall=100;
@@ -75,7 +81,7 @@ void draw(){
   angle=40+mouseX/float(width);
   stroke(21,35,60,70);//blue
   t1.draw3dtent(var,30,tall);
-  stroke(55,66,24,100);//green
+  stroke(47,55,20,100);//green
   t2.draw3dtent(var,30,tall);
   stroke(60,38,0,100);//brown
   t3.draw3dtent(var,30,tall);
@@ -84,20 +90,29 @@ void draw(){
   stroke(112,94,76,100);//lotus
   t5.draw3dtent(var,30,tall);
   
-   strokeWeight(3);
-  //for(int i=20;i<360;i+=20){
+  strokeWeight(3);
+  for(int i=20;i<360;i+=20){
    
-  //  pushMatrix();
-  //  translate(100,100,100);
-  //  stroke(50,0,34,200);
-  //  limb(-1,1,-0.5,1,i);
-  //  popMatrix();
-
-  //}
+    pushMatrix();
+    translate(200,700,0);
+    stroke(205,230,239,200);
+    scale(0.5);
+    limb(-1,1,-0.5,1,i);
+    popMatrix();
+    
+    pushMatrix();
+    translate(500,500,0);
+    stroke(205,0,25,200);
+    scale(0.3);
+    limb(-1,1,-0.5,1,i);
+    popMatrix();
+  }
 
   }
 
 
 void mousePressed(){
   f.init();
+  already3=0;
+  file4.play();
 }

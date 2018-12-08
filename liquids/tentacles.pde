@@ -69,30 +69,7 @@ class tentacles{
         }
       }
   }
-  //grow scales
-  void scales(float density, float hosttall,float hostdiam,float scalesize){
-    /*
-    this function is still under development... doesn't seem to create much interesting pattern
-    */
-    for(int i=0;i<width/x;i+=2){
-        for(int j=0;j<height/y;j+=1){
-          //store scales of random x,y coord in each grid
-          if(i<width/x-1){
-            beginShape();
-              for(int k=0;k<360;k+=10){
-              float a=hostdiam*cos(degrees(k))+tentx[i][j];
-              float b=hostdiam*sin(degrees(k))+tenty[i][j];
-              float px=hostdiam*cos(degrees(k-density))+tentx[i][j];
-              float py=hostdiam*sin(degrees(k-density))+tenty[i][j];
-              generate_arc(px,py,a,b,10,-1,scalesize,hosttall/5,hosttall/5); 
-              }
-            endShape();
-          
-          }
-        }
-      }
   
-  }
   void bleed(float innerx,float tall,float angle){
     /*
     this function is supposed to draw temporal flare-like structures by using generate_arc
