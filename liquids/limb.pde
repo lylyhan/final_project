@@ -3,7 +3,7 @@ void limb(float dirmin,float dirmax,float dirmin2,float dirmax2,float ang){
   float x=width/2;
   float y=height/2;
   float z=40;
-  float inc=10;
+  float inc=20;
   //if(frameCount%20==0 || frameCount==1){
   //coords.clear();
   //for(int i=0;i<20;i++){

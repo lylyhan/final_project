@@ -2,11 +2,17 @@
 //make 2D grids, each contains a randomly pointing vector(perlin noise)
 //create a vehicle class that has steering force
 flowfield f;
+//PostFX fx;
+import ComputationalGeometry.*;
+IsoContour iso,iso2;
 ArrayList<vehicle> vehicles;
 tentacles t1,t2,t3,t4,t5;
 float tall=80;
 float var,angle;
 import processing.sound.*;
+//import ch.bildspur.postfx.builder.*;
+//import ch.bildspur.postfx.pass.*;
+//import ch.bildspur.postfx.*;
 SoundFile file1,file2,file3,file4;
 int already1=0;
 int already2=0;
@@ -14,9 +20,18 @@ int already3=0;
 
 void setup(){
   size(1000,1000,P3D);
+  //fx=new PostFX(this);
   f=new flowfield(20);
   vehicles=new ArrayList<vehicle>();
-  
+  iso = new IsoContour(this, new PVector(0,0), new PVector(width,height), 20,200);
+  iso2 = new IsoContour(this, new PVector(0,0), new PVector(width,height), 20,100);
+   randomSeed(1);
+  for(int i=0; i<50; i++){
+    PVector pt = new PVector( random(width), random(height), 0 );
+    PVector pt2 = new PVector( random(width), random(height), 0 );
+    iso.addPoint(pt);
+    iso2.addPoint(pt2);
+  }
    //<>//
   for(int i=0;i<50;i++){
  //<>//
@@ -38,8 +53,29 @@ t5=new tentacles(10,15,0,100);
 }
 
 void draw(){
+  background(0);
+   //fx.render()
+   // .bloom(0.5, 20, 40)
+   // .blur(20, 50)
+   // .compose();
+   fill(87,35,0,100);
+   //noStroke();
+  //stroke(87,68,0,100);
+  stroke(87,35,0,100);
+  float threshold = 0.01-abs(sin(frameCount/100.0f)) * .009;
+  iso.plot( threshold); // you must provide a threshold to render the iso contour
+  
+  
+  stroke(16,35,0,100);
+   noStroke();
+  //stroke(87,68,0,100);
+  //stroke(87,35,0,100);
+  float threshold2 = 0.01-abs(sin(frameCount/100.0f)) * .009;
+  iso2.plot( threshold2); // you must provide a threshold to render the iso contour
+  
+  
   float speed=map(abs(mouseX-width/2),0,width/2,3,0.2);
-  println(speed);
+  //println(speed);
   if(mouseX>width/2){
     if(!file1.isPlaying() && already1==0){
       file1.play();
@@ -63,7 +99,7 @@ void draw(){
   }
   
   
-  background(0);
+  
   if(key=='h'){
     if(!file3.isPlaying() && already3==0){
     file3.play();
@@ -89,14 +125,17 @@ void draw(){
   t4.draw3dtent(var,30,tall);
   stroke(112,94,76,100);//lotus
   t5.draw3dtent(var,30,tall);
-  
+  pushMatrix();
+  translate(noise(100),-100,0);
   strokeWeight(3);
   for(int i=20;i<360;i+=20){
    
     pushMatrix();
-    translate(200,700,0);
+    translate(200,500,0);
     stroke(205,230,239,200);
     scale(0.5);
+    limb(-1,1,-0.5,1,i);
+    stroke(84,65,25,200);
     limb(-1,1,-0.5,1,i);
     popMatrix();
     
@@ -105,9 +144,20 @@ void draw(){
     stroke(205,0,25,200);
     scale(0.3);
     limb(-1,1,-0.5,1,i);
+    stroke(204,128,25,200);
+    limb(-1,1,-0.5,1,i);
+    popMatrix();
+    
+     pushMatrix();
+    translate(100,300,0);
+    stroke(44,133,73,200);
+    scale(0.3);
+    limb(-1,1,-0.5,1,i);
+    stroke(44,65,73,200);
+    limb(-1,1,-0.5,1,i);
     popMatrix();
   }
-
+ popMatrix();
   }
 
 
