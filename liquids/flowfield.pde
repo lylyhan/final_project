@@ -1,3 +1,6 @@
+//a flow field that draws vectors with directions determined by perlin noise
+//one vector in each grid, number of grids specified by user.
+//referencing Daniel Sheiffman
 class flowfield{
   int cols,rows,resolution;
   PVector[][] field;

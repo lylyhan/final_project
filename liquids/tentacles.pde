@@ -1,3 +1,5 @@
+//a tentacle class that draws dome-like shapes as units, the constructor stores
+//positions of these units and the method draws the shapes
 class tentacles{
     
     float[][] tentx,tenty;
@@ -70,53 +72,4 @@ class tentacles{
       }
   }
   
-  void bleed(float innerx,float tall,float angle){
-    /*
-    this function is supposed to draw temporal flare-like structures by using generate_arc
-    originating from each core, it spreads inside-out of its host
-    parameters include how spread-out(innerx), how tall(tall), and how distorted(angle) the flare is.
-    */
-    beginShape();
-    for(int i=0;i<width/x;i+=2){
-        for(int j=0;j<height/y;j+=1){
-          for(int k=0;k<360;k+=10){
-            if (random(0,1)<0.5){
-              generate_arc(tentx[i][j],tenty[i][j],(innerx)*cos(k)+tentx[i][j],(innerx)*sin(k)+tenty[i][j],angle,1,tall,0,tall+20);
-            }
-            }
-    endShape();
-        }
-    }
-
-}
-
-
-
-
-
-
-
-void generate_arc(float px,float py, float x, float y, float angle,int sign,float tall,float platform,float platform2){
-      /*
-      the function is supposed to create an arc given start and end coordinates,
-      the angle of arc's midpoint with respect to the straight line between start/end
-      coordinates(how curvy), and if the arc is concave or convex, indicated by sign.
-      
-      update: this is a new version accomodated to 3d environment, added start/end point's z position
-      */
-      noFill();
-      beginShape();
-      vertex(px,py,platform);
-      //calculate distance between start coordinate to midpoint of the arc of intended curviness
-      float controlr=sqrt(sq(py-y)+sq(px-x))/(2*cos(radians(angle)));
-      //calculate the angle of midpoint with respect to x axis
-      float alpha=atan2((y-py),(x-px))+sign*radians(angle);
-      //express coordinate of the midpoint in terms of the above variables
-      float controlptx=px+controlr*cos(alpha);
-      float controlpty=py+controlr*sin(alpha);
-      quadraticVertex(controlptx,controlpty,tall,x,y,platform2);
-      endShape();
-     
-
-      }
 }

@@ -1,33 +1,23 @@
+//a function that draws pod-like structures, through varying position of the next pod
+//with random noise, creates a frantic motion that simulates an extremely flexible limb.
 ArrayList<PVector> coords= new ArrayList<PVector>();
 void limb(float dirmin,float dirmax,float dirmin2,float dirmax2,float ang){  
   float x=width/2;
   float y=height/2;
   float z=40;
   float inc=20;
-  //if(frameCount%20==0 || frameCount==1){
-  //coords.clear();
-  //for(int i=0;i<20;i++){
-  //coords.add(new PVector(x,y,z));
-  //x+=random(dirmin*inc,dirmax*inc);
-  //y+=random(dirmin2*inc,dirmax2*inc);
-  //z+=random(-40,40);
-  //}
-   
 
-  //if(frameCount%20==0 || frameCount==1){
   coords.clear();//only one branch is always there cuz every 20 frames the coords are cleared??
+  //10 "joints" are in this limb
   for(int i=0;i<10;i++){
   coords.add(new PVector(x,y,z));
   x+=dirmin+random(dirmin*inc-dirmax*inc)*sin(ang);
   y+=dirmin2+random(dirmin2*inc,dirmax2*inc)*cos(ang);
   z+=random(-80,80);
   }
-  //}
-  //println(coords.size());
+ 
   PVector pcoord=coords.get(0);
-  //PVector endcoord=new PVector(800,100,40);
   strokeWeight(1);
-  //stroke(118,16,13,100);
   fill(200);
   beginShape();
   for(int i=1;i<coords.size();i++){

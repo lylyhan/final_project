@@ -1,3 +1,5 @@
+//a vehicle class that follow the flow field direction.  
+//referencing Daniel Sheiffman
 class vehicle{
   PVector position, acceleration,velocity;
   float r,maxspeed,maxforce;
@@ -68,6 +70,7 @@ class vehicle{
 
 }
 
+//specify shape of the vehicle
 void cusshape(){
  stroke(205,230,239,100);
 
