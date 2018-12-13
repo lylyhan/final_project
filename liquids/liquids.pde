@@ -1,13 +1,14 @@
 flowfield f;
 import ComputationalGeometry.*;
 IsoContour iso,iso2,iso3;
+IsoSkeleton skeleton;
 ArrayList<vehicle> vehicles;
 tentacles t1,t2,t3,t4,t5;
 float tall=80;
 float var,angle;
 import processing.sound.*;
 
-SoundFile file1,file2,file3,file4;
+SoundFile file1,file2,file3,file4,file5;
 int already1=0;
 int already2=0;
 int already3=0;
@@ -29,6 +30,23 @@ void setup(){
     iso2.addPoint(pt2);
     iso3.addPoint(pt3);
   }
+  
+  // Create iso-skeleton
+  skeleton = new IsoSkeleton(this);
+
+  // Create points to make the network
+  PVector[] pts = new PVector[50];
+  for (int i=0; i<pts.length; i++) {
+    pts[i] = new PVector(random(0, width), random(0, height), 0 );
+  }  
+
+  for (int i=0; i<pts.length; i++) {
+    for (int j=i+1; j<pts.length; j++) {
+      if (pts[i].dist( pts[j] ) <300) {
+        skeleton.addEdge(pts[i], pts[j]);
+      }
+    }
+  }
    //<>//
   for(int i=0;i<50;i++){
  //<>//
@@ -45,6 +63,8 @@ t5=new tentacles(10,15,0,100);
  file2 = new SoundFile(this, "breathout.wav");
  file3 = new SoundFile(this, "whisper.wav");
  file4 = new SoundFile(this, "swallow.wav");
+ file5 = new SoundFile(this, "noised_crowd.mp3");
+ file5.loop(0.5);
 
 }
 
@@ -66,6 +86,9 @@ void draw(){
   float threshold3 = 0.001+abs(sin(frameCount/80.0f)) * .009;
   iso3.plot( threshold3); // you must provide a threshold to render the iso contour
   
+  noStroke();
+  fill(89,39,36,70);
+  skeleton.plot(10.f * float(mouseX) / (20.0f*width), float(mouseY) / (20.0*height));
   
   //play sound file when moving mouse across the screen
   float speed=map(abs(mouseX-width/2),0,width/2,3,0.2);
@@ -109,11 +132,11 @@ void draw(){
   tall=100;
   var=20+10*mouseX/float(width);
   angle=40+mouseX/float(width);
-  stroke(21,35,60,70);//blue
+  stroke(21,35,60,100);//blue
   t1.draw3dtent(var,30,tall);
   stroke(47,55,20,100);//green
   t2.draw3dtent(var,30,tall);
-  stroke(60,38,0,100);//brown
+  stroke(60,38,0,120);//brown
   t3.draw3dtent(var,30,tall);
   stroke(133,64,24,100);//dirt
   t4.draw3dtent(var,30,tall);
@@ -123,7 +146,10 @@ void draw(){
   //draw seaflowers of different colors on canvas
   pushMatrix();
   translate(noise(100),-100,0);
-  float opa=200-sin(frameCount/100.0f)*200;
+  float opa=sin(frameCount/50.0f)*200;
+  //file5.amp(sin(frameCount/100.0f)*0.6);
+  //println(file5.frames());
+  
   strokeWeight(3);
   for(int i=20;i<360;i+=20){
    //white seaflower
@@ -191,5 +217,7 @@ void draw(){
 void mousePressed(){
   f.init();
   already3=0;
+  float speed=map(abs(mouseX-width/2),0,width/2,3,0.2);
   file4.play();
+  file4.rate(speed);
 }
